@@ -9,8 +9,22 @@ const DUMMY_USER = { name: "Amar Admin" };
 
 export default function Frame({ children }) {
   const router = useRouter();
+  const baseurl = process.env.NEXT_PUBLIC_API_URL;
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      if (baseurl) {
+        await fetch(`${baseurl}/logout`, {
+          method: "POST",
+          credentials: "include",
+        });
+      }
+    } catch {
+      // Local cookie cleanup below still lets the admin leave this session.
+    }
+
+    document.cookie = "accessToken=; path=/; Max-Age=0; SameSite=Lax";
+    document.cookie = "refreshToken=; path=/; Max-Age=0; SameSite=Lax";
     router.replace("/auth");
   };
 
@@ -46,7 +60,7 @@ export default function Frame({ children }) {
           </div>
         </header>
 
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6 sm:p-8">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50  ">
           {children}
         </main>
       </div>
