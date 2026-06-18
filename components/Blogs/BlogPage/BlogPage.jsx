@@ -147,13 +147,13 @@ function CategoryTag({ category }) {
 // ─── Metric Card ─────────────────────────────────────────────
 function MetricCard({ label, value, icon: Icon, accent }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-slate-200/70 bg-white px-4 py-3.5 shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]">
-      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${accent.bg}`}>
-        <Icon className={`h-4.5 w-4.5 ${accent.text}`} strokeWidth={2.2} />
+    <div className="flex items-center gap-3 rounded-xl border border-slate-200/70 bg-white px-4 py-3 shadow-[0_1px_2px_0_rgba(0,0,0,0.03)]">
+      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${accent.bg}`}>
+        <Icon className={`h-4 w-4 ${accent.text}`} strokeWidth={2.2} />
       </div>
       <div>
-        <p className="text-xl font-bold leading-none text-slate-900 tabular-nums">{value}</p>
-        <p className="mt-1 text-xs font-medium text-slate-500">{label}</p>
+        <p className="text-lg font-bold leading-none text-slate-900 tabular-nums">{value}</p>
+        <p className="mt-1 text-[11px] font-medium text-slate-500">{label}</p>
       </div>
     </div>
   );
@@ -172,12 +172,12 @@ function SortHeader({ label, field, sortField, sortDir, onSort, align = "left" }
         {label}
         {isActive ? (
           sortDir === "asc" ? (
-            <ChevronUp className="h-3.5 w-3.5" strokeWidth={2.5} />
+            <ChevronUp className="h-3 w-3" strokeWidth={2.5} />
           ) : (
-            <ChevronDown className="h-3.5 w-3.5" strokeWidth={2.5} />
+            <ChevronDown className="h-3 w-3" strokeWidth={2.5} />
           )
         ) : (
-          <ChevronsUpDown className="h-3.5 w-3.5 text-slate-300 group-hover:text-slate-400" />
+          <ChevronsUpDown className="h-3 w-3 text-slate-300 group-hover:text-slate-400" />
         )}
       </button>
     </th>
@@ -369,21 +369,21 @@ export default function BlogPage() {
   const totalViews = useMemo(() => posts.reduce((sum, p) => sum + p.views, 0), [posts]);
 
   return (
-    <div className="min-h-screen bg-slate-50/70">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen w-full bg-slate-50/70 py-4 ">
+      <div className="mx-auto max-w-[95%]">
 
         {/* Header */}
-        <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="mb-1.5 flex items-center gap-2">
-              <span className="h-1.5 w-6 rounded-full" style={{ backgroundColor: ACCENT }} />
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Blog engine</span>
+            <div className="mb-1 flex items-center gap-2">
+              <span className="h-1 w-5 rounded-full" style={{ backgroundColor: ACCENT }} />
+              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Blog engine</span>
             </div>
-            <h1 className="text-[28px] font-extrabold leading-tight text-slate-900">Blog posts</h1>
+            <h1 className="text-2xl font-extrabold leading-tight text-slate-900">Blog posts</h1>
           </div>
           <button
             onClick={() => setDrawerOpen(true)}
-            className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-bold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-bold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
             style={{ backgroundColor: BRAND }}
           >
             <Plus className="h-4 w-4" strokeWidth={2.5} />
@@ -402,26 +402,26 @@ export default function BlogPage() {
         {/* Toolbar */}
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full sm:max-w-sm">
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search by title, author, category"
-              className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm transition-shadow focus:border-[#235056] focus:outline-none focus:ring-2 focus:ring-[#235056]/15"
+              className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm transition-shadow focus:border-[#235056] focus:outline-none focus:ring-2 focus:ring-[#235056]/15"
             />
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto rounded-lg bg-slate-100 p-1">
+          <div className="flex items-center gap-1 overflow-x-auto rounded-lg bg-slate-100 p-1">
             {[
               { key: "all", label: "All" },
               { key: "published", label: "Published" },
               { key: "draft", label: "Draft" },
               { key: "archived", label: "Archived" },
             ].map((f) => (
-              <button
+               <button
                 key={f.key}
                 onClick={() => setStatusFilter(f.key)}
-                className={`shrink-0 rounded-md px-3 py-1.5 text-sm font-semibold transition-all ${
+                className={`shrink-0 rounded-md px-3 py-1 text-sm font-semibold transition-all ${
                   statusFilter === f.key ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -450,30 +450,30 @@ export default function BlogPage() {
               <tbody className="divide-y divide-slate-100">
                 {filtered.map((post) => (
                   <tr key={post.id} className="group transition-colors hover:bg-slate-50/70">
-                    <td className="max-w-[280px] px-4 py-3.5">
+                    <td className="max-w-[280px] px-4 py-3">
                       <p className="truncate text-sm font-semibold text-slate-800">{post.title}</p>
                       <p className="mt-0.5 truncate text-xs text-slate-400">/{post.slug}</p>
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="px-4 py-3">
                       <CategoryTag category={post.category} />
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="px-4 py-3">
                       <span className="text-sm font-medium text-slate-600">{post.author}</span>
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="px-4 py-3">
                       <StatusBadge status={post.status} />
                     </td>
-                    <td className="px-4 py-3.5 text-right">
+                    <td className="px-4 py-3 text-right">
                       <span className="text-sm font-semibold text-slate-700 tabular-nums">{post.views.toLocaleString()}</span>
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="px-4 py-3">
                       <span className="text-sm text-slate-500">
                         {post.publishedAt
                           ? new Date(post.publishedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })
                           : <span className="text-slate-300">—</span>}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1">
                         <button title="View" className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700">
                           <Eye className="h-4 w-4" />
@@ -497,7 +497,7 @@ export default function BlogPage() {
           </div>
 
           {filtered.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="flex flex-col items-center justify-center py-12 text-center">
               <div className="mb-3 rounded-full bg-slate-100 p-3">
                 <Filter className="h-5 w-5 text-slate-400" />
               </div>
