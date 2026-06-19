@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import Swal from "sweetalert2"; // Make sure you have this installed
 import Link from "next/link";
+import EditCategory from "./EditCategory";
+import PreviewCat from "./PreviewCat";
 
 /* ----------------------------------------------------------------------
  * KRAVIONA — Admin · Categories 
@@ -95,6 +97,10 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("All");
+  const [editPageOpen,setEditPageOpen]=useState(false)
+  const [editCatID,setEditCatID]=useState('')
+  const [previewCat,setPreviewCat]=useState(false)
+  const [prevCatID,setPrevCatID]=useState("")
 
   // Fetch from Real API
   const fetchCategories = async () => {
@@ -127,6 +133,48 @@ export default function CategoriesPage() {
     }
   };
 
+
+const deleteCategory = async (id) => {
+  try {
+    setLoading(true);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/category/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include", 
+      }
+    );
+    
+    const result = await response.json();
+
+    if (response.ok && result.success !== false) {
+      
+      setCategories((prev) => prev.filter((category) => category._id !== id));
+
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "The category has been deleted successfully.",
+        confirmButtonColor: BRAND,
+      });
+
+    } else {
+      throw new Error(result.message || "Failed to delete the category.");
+    }
+  } catch (err) {
+    console.error("Delete category error:", err);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: err.message || "Could not delete the category from the server.",
+      confirmButtonColor: BRAND,
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -145,6 +193,8 @@ export default function CategoriesPage() {
   });
 
   return (
+   <>
+   
     <div className="w-full bg-[#fcfcfc] p-4 sm:p-6 lg:p-8 min-h-screen">
       <div className="mx-auto w-full max-w-7xl">
         
@@ -276,8 +326,8 @@ export default function CategoriesPage() {
                       
                       {/* Name & Slug Column */}
                       <td className="px-5 py-3">
-                        <div className="font-semibold text-slate-900">{category.name}</div>
-                        <div className="mt-0.5 text-xs text-slate-400">/{category.slug}</div>
+                        <div className="font-semibold text-slate-900 capitalize" >{category.name}</div>
+                        <div className="mt-0.5 text-xs text-slate-400 lowercase">/{category.slug}</div>
                       </td>
 
                       {/* Status Column */}
@@ -303,12 +353,20 @@ export default function CategoriesPage() {
                       <td className="px-5 py-3">
                         <div className="flex items-center justify-end gap-1 text-slate-400">
                           <button className="rounded-md p-1.5 transition-colors hover:bg-slate-100 hover:text-slate-700">
-                            <Eye className="h-4 w-4" />
+                            <Eye onClick={()=>{
+                              setPrevCatID(category._id)
+                              setPreviewCat(!previewCat)
+                            }} className="h-4 w-4" />
                           </button>
-                          <button className="rounded-md p-1.5 transition-colors hover:bg-slate-100 hover:text-[#235056]">
+                          <button onClick={()=>{
+                            setEditCatID(category._id)
+setEditPageOpen(!editPageOpen)
+                          }} className="rounded-md p-1.5 transition-colors hover:bg-slate-100 hover:text-[#235056]">
                             <Pencil className="h-4 w-4" />
                           </button>
-                          <button className="rounded-md p-1.5 transition-colors hover:bg-red-50 hover:text-red-600">
+                          <button onClick={()=>{
+                            deleteCategory(category._id)
+                          }} className="rounded-md p-1.5 transition-colors hover:bg-red-50 hover:text-red-600">
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
@@ -324,5 +382,21 @@ export default function CategoriesPage() {
 
       </div>
     </div>
+
+    {/* Edit Section */}
+    {
+      editPageOpen && <div className="fixed z-50 top-0 right-0 w-full h-screen flex items-center justify-center bg-[#0000007d]">
+<EditCategory id={editCatID} setEditPageOpen={setEditPageOpen}/>
+    </div>
+    }
+
+{/* preview */}
+
+{
+  previewCat && <div className="fixed z-50 top-0 right-0 w-full h-screen flex items-center justify-center bg-[#0000007d]">
+    <PreviewCat id={prevCatID} setPreviewCat={setPreviewCat}/>
+  </div>
+}
+   </>
   );
 }
