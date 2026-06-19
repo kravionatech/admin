@@ -108,7 +108,7 @@ export default function Sidebar({ onLogout }) {
     ]},
     { title: 'Blog Engine', items: [
       { name: 'Manage Posts',  path: '/blog',          icon: <FiEdit3 />,         badge: 'existing' },
-      { name: 'Categories',    path: '/categories',    icon: <FiTag />,           badge: 'existing' },
+      { name: 'Categories',    path: '/category',    icon: <FiTag />,           badge: 'existing' },
       { name: 'Comments',      path: '/comments',      icon: <FiMessageSquare />, badge: 'existing' },
       { name: 'Content Decay', path: '/content-decay', icon: <FiAlertCircle />,   badge: 'existing' },
     ]},
