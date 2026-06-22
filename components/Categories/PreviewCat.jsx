@@ -17,6 +17,7 @@ const PreviewCat = ({ id, setPreviewCat }) => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category/${id}`);
         const result = await res.json();
+console.log(res);
 
         if (res.ok) {
           setData(result.data || result.category || result);

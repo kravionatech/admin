@@ -16,8 +16,8 @@ import {
 } from "lucide-react";
 import Swal from "sweetalert2"; // Make sure you have this installed
 import Link from "next/link";
-import EditCategory from "./EditCategory";
 import PreviewCat from "./PreviewCat";
+import EditCategory from "./EditCategory";
 
 /* ----------------------------------------------------------------------
  * KRAVIONA — Admin · Categories 
@@ -97,10 +97,12 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("All");
-  const [editPageOpen,setEditPageOpen]=useState(false)
-  const [editCatID,setEditCatID]=useState('')
-  const [previewCat,setPreviewCat]=useState(false)
-  const [prevCatID,setPrevCatID]=useState("")
+  const [prevCatID,setPrevCatID]= useState('')
+  const [prevCat,setPrevCat]=useState(false)
+
+  const [editID, setEditID] = useState('');
+  const [editOpen, setEditOpen] = useState(false);
+
 
   // Fetch from Real API
   const fetchCategories = async () => {
@@ -193,8 +195,7 @@ const deleteCategory = async (id) => {
   });
 
   return (
-   <>
-   
+    <>
     <div className="w-full bg-[#fcfcfc] p-4 sm:p-6 lg:p-8 min-h-screen">
       <div className="mx-auto w-full max-w-7xl">
         
@@ -326,8 +327,8 @@ const deleteCategory = async (id) => {
                       
                       {/* Name & Slug Column */}
                       <td className="px-5 py-3">
-                        <div className="font-semibold text-slate-900 capitalize" >{category.name}</div>
-                        <div className="mt-0.5 text-xs text-slate-400 lowercase">/{category.slug}</div>
+                        <div className="font-semibold text-slate-900">{category.name}</div>
+                        <div className="mt-0.5 text-xs text-slate-400">/{category.slug}</div>
                       </td>
 
                       {/* Status Column */}
@@ -354,15 +355,17 @@ const deleteCategory = async (id) => {
                         <div className="flex items-center justify-end gap-1 text-slate-400">
                           <button className="rounded-md p-1.5 transition-colors hover:bg-slate-100 hover:text-slate-700">
                             <Eye onClick={()=>{
-                              setPrevCatID(category._id)
-                              setPreviewCat(!previewCat)
+                               setPrevCatID(category._id)
+
+
+                              setPrevCat(true)
                             }} className="h-4 w-4" />
                           </button>
-                          <button onClick={()=>{
-                            setEditCatID(category._id)
-setEditPageOpen(!editPageOpen)
-                          }} className="rounded-md p-1.5 transition-colors hover:bg-slate-100 hover:text-[#235056]">
-                            <Pencil className="h-4 w-4" />
+                          <button className="rounded-md p-1.5 transition-colors hover:bg-slate-100 hover:text-[#235056]">
+                            <Pencil onClick={()=>{
+                              setEditID(category._id);
+                              setEditOpen(true);
+                            }} className="h-4 w-4" />
                           </button>
                           <button onClick={()=>{
                             deleteCategory(category._id)
@@ -383,20 +386,13 @@ setEditPageOpen(!editPageOpen)
       </div>
     </div>
 
-    {/* Edit Section */}
     {
-      editPageOpen && <div className="fixed z-50 top-0 right-0 w-full h-screen flex items-center justify-center bg-[#0000007d]">
-<EditCategory id={editCatID} setEditPageOpen={setEditPageOpen}/>
-    </div>
+      prevCat && <PreviewCat
+      id={prevCatID} setPreviewCat={setPrevCat}/>
     }
 
-{/* preview */}
+    {editOpen && <EditCategory id={editID} setEditPageOpen={setEditOpen} />}
 
-{
-  previewCat && <div className="fixed z-50 top-0 right-0 w-full h-screen flex items-center justify-center bg-[#0000007d]">
-    <PreviewCat id={prevCatID} setPreviewCat={setPreviewCat}/>
-  </div>
-}
-   </>
+    </>
   );
 }

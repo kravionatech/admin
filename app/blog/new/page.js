@@ -1,11 +1,9 @@
-import CreatePostPage from "@/components/Blogs/AddBlog/CreatePost";
-import Frame from "@/components/Frame/Frame";
-import React from "react";
+import React from 'react'
 
-const ManagePost = ()=>{
-    return <Frame>
-        <CreatePostPage/> </Frame>
+const CreatePost = () => {
+  return (
+    <div>page</div>
+  )
 }
-   
 
-export default ManagePost
+export default CreatePost

@@ -17,6 +17,7 @@ import {
   Archive,
   Filter,
 } from "lucide-react";
+import Link from "next/link";
 
 // ─── Mock Data ───────────────────────────────────────────────
 const MOCK_POSTS = [
@@ -381,14 +382,15 @@ export default function BlogPage() {
             </div>
             <h1 className="text-2xl font-extrabold leading-tight text-slate-900">Blog posts</h1>
           </div>
+          <Link href="/blog/new">
           <button
-            onClick={() => setDrawerOpen(true)}
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-bold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
+           
+           className="inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-bold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
             style={{ backgroundColor: BRAND }}
           >
             <Plus className="h-4 w-4" strokeWidth={2.5} />
             Add post
-          </button>
+          </button></Link>
         </div>
 
         {/* Metric cards */}
