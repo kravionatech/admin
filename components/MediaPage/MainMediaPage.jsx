@@ -140,7 +140,7 @@ const MainMediaPage = () => {
           <h1 className="text-2xl font-extrabold leading-tight text-slate-900">Media Data</h1>
         </div>
 
-        <Link href="/blog/new">
+        <Link href="/media/new">
           <button className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-orange-500 px-3.5 py-2 text-sm font-bold text-white shadow-sm shadow-orange-500/20 transition-all hover:bg-orange-600 hover:shadow-md active:scale-[0.98]">
             <UploadCloudIcon className="h-4 w-4" strokeWidth={2.5} />
             Upload

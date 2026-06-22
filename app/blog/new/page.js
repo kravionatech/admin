@@ -1,8 +1,9 @@
+import Frame from '@/components/Frame/Frame'
 import React from 'react'
 
 const CreatePost = () => {
   return (
-    <div>page</div>
+    <Frame>page</Frame>
   )
 }
 
