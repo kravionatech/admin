@@ -36,7 +36,13 @@ export function Spinner({ size = "md", className = "" }) {
         strokeDasharray="85 150"
       />
       <defs>
-        <linearGradient id="kraviona-spinner-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient
+          id="kraviona-spinner-grad"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
           <stop offset="0%" stopColor="#fb7a3c" />
           <stop offset="100%" stopColor="#fb7a3c" stopOpacity="0" />
         </linearGradient>
@@ -54,7 +60,14 @@ export function ButtonSpinner({ className = "" }) {
       role="status"
       aria-label="Loading"
     >
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.25" strokeWidth="3" />
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        strokeOpacity="0.25"
+        strokeWidth="3"
+      />
       <path
         d="M21 12a9 9 0 0 0-9-9"
         stroke="currentColor"
@@ -65,7 +78,11 @@ export function ButtonSpinner({ className = "" }) {
   );
 }
 
-export function PageLoader({ section = "Blog Engine", title = "Blog Posts", message = "Fetching the latest data…" }) {
+export function PageLoader({
+  section = "Blog Engine",
+  title = "Blog Posts",
+  message = "Fetching the latest data…",
+}) {
   return (
     <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center gap-5 bg-surface/95 backdrop-blur-sm">
       <div className="relative flex items-center justify-center">
@@ -73,7 +90,9 @@ export function PageLoader({ section = "Blog Engine", title = "Blog Posts", mess
         <Spinner size="xl" />
       </div>
       <div className="text-center">
-        <p className="text-[11px] font-medium uppercase tracking-wide text-accent">{section}</p>
+        <p className="text-[11px] font-medium uppercase tracking-wide text-accent">
+          {section}
+        </p>
         <h2 className="mt-1 text-lg font-semibold text-ink">{title}</h2>
         <p className="mt-1.5 text-sm text-ink-faint">{message}</p>
       </div>
